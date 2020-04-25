@@ -48,9 +48,8 @@ const App = () => {
         Built with{" "}
         <span role="img" aria-label="love">
           ❤️
-        </span>
-        by
-        <a href="http://rvgpl.xyz">Ravigopal Kesari</a>
+        </span>{" "}
+        by <a href="http://rvgpl.xyz">Ravigopal Kesari</a>
       </Footer>
     </Theme>
   );
@@ -80,6 +79,5 @@ const Footer = styled.footer`
 
   a {
     color: currentColor;
-    text-decoration: none;
   }
 `;
