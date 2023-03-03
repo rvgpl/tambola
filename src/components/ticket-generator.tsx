@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import getTickets from "../get-tickets";
-import styled from "styled-components";
 import sum from "hash-sum";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import getTickets from "../get-tickets";
 import Ticket from "./ticket";
 
 const colors = [
@@ -14,7 +14,7 @@ const colors = [
 ];
 
 const TicketGenerator = () => {
-  const [tickets, setTickets] = useState(getTickets(6));
+  const [tickets, setTickets] = useState([getTickets(6), getTickets(6)]);
   const [color, setColor] = useState(colors[1]);
 
   useEffect(() => {
@@ -23,17 +23,32 @@ const TicketGenerator = () => {
 
   return (
     <Container>
-      <Button onClick={() => setTickets(getTickets(6))}>New Ticket</Button>
-      <TicketsContainer color={color}>
-        {tickets.map((ticket, idx) => (
-          <Ticket ticket={ticket} key={idx} ticketNo={sum(ticket)} />
-        ))}
-      </TicketsContainer>
+      <Button onClick={() => setTickets([getTickets(6), getTickets(6)])}>
+        New Ticket
+      </Button>
+      <TicketsWrapper>
+        <TicketsContainer color={color}>
+          {tickets[0].map((ticket, idx) => (
+            <Ticket ticket={ticket} key={idx} ticketNo={sum(ticket)} />
+          ))}
+        </TicketsContainer>
+        <TicketsContainer color={color}>
+          {tickets[1].map((ticket, idx) => (
+            <Ticket ticket={ticket} key={idx} ticketNo={sum(ticket)} />
+          ))}
+        </TicketsContainer>
+      </TicketsWrapper>
     </Container>
   );
 };
 
 export default TicketGenerator;
+
+const TicketsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+`;
 
 const TicketsContainer = styled.div`
   display: flex;
@@ -57,6 +72,10 @@ const Button = styled.button`
   outline: none;
   width: 100%;
   max-width: 200px;
+  
+  @media print {
+      display: none;
+  }
 `;
 
 const Container = styled.div`

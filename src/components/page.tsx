@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 import { Theme } from "../context/theme";
 import { defaultTheme } from "../styled/default-theme";
 import { GlobalStyle } from "../styled/global";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 const Page: FunctionComponent = ({ children }) => {
   return (
@@ -72,6 +72,10 @@ const Header = styled.header`
   li {
     margin: 0 16px;
   }
+
+  @media print {
+    display: none;
+  }
 `;
 const Footer = styled.footer`
   padding: 5px 0;
@@ -84,6 +88,10 @@ const Footer = styled.footer`
 
   a {
     color: currentColor;
+  }
+
+  @media print {
+    display: none;
   }
 `;
 
