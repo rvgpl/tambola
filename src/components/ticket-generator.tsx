@@ -2,6 +2,7 @@ import sum from "hash-sum";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import getTickets from "../get-tickets";
+import { media } from "../styled/media";
 import Ticket from "./ticket";
 
 const colors = [
@@ -23,9 +24,12 @@ const TicketGenerator = () => {
 
   return (
     <Container>
-      <Button onClick={() => setTickets([getTickets(6), getTickets(6)])}>
-        New Ticket
-      </Button>
+      <ButtonsContainer>
+        <Button onClick={() => setTickets([getTickets(6), getTickets(6)])}>
+          New Ticket
+        </Button>
+        <Button onClick={() => window.print()}>Print Tickets</Button>
+      </ButtonsContainer>
       <TicketsWrapper>
         <TicketsContainer color={color}>
           {tickets[0].map((ticket, idx) => (
@@ -44,10 +48,37 @@ const TicketGenerator = () => {
 
 export default TicketGenerator;
 
+const ButtonsContainer = styled.div`
+  display: flex;
+  gap: 32px;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 300px;
+
+  ${media.tablet`
+  max-width: 700px;
+  `}
+`;
+
 const TicketsWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  gap: 32px;
+  flex-direction: column;
+
+  ${media.tablet`
+    flex-direction: row;
+    gap: 32px;
+    width: 100%;
+    justify-content: space-between;
+    max-width: 700px;
+`}
+
+  @media print {
+    flex-direction: row;
+    gap: 32px;
+    width: 100%;
+    justify-content: space-between;
+    max-width: 600px;
+  }
 `;
 
 const TicketsContainer = styled.div`
@@ -55,8 +86,12 @@ const TicketsContainer = styled.div`
   flex-direction: column;
   background-color: ${(props) => props.color};
   max-width: 700px;
-  margin: 30px auto;
+  gap: 24px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+  @media print {
+    box-shadow: none;
+  }
 `;
 
 const Button = styled.button`
